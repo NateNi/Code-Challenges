@@ -28,3 +28,17 @@ class MinStack:
 
     def getMin(self) -> int:
         return self.data[-1][1] if self.data else None
+
+# 134 Gas Station
+class Solution:
+    def canCompleteCircuit(self, gas: List[int], cost: List[int]) -> int:
+        if (sum(gas) - sum(cost)) < 0:
+            return -1
+        currDiff = 0
+        currStart = 0
+        for i in range(len(gas)):
+            currDiff += gas[i] - cost[i]
+            if currDiff < 0:
+                currStart = i+1
+                currDiff = 0
+        return currStart
