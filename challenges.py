@@ -42,3 +42,50 @@ class Solution:
                 currStart = i+1
                 currDiff = 0
         return currStart
+
+#17 Letter Combinations of a Phone Number
+class Solution:
+    def letterCombinations(self, digits: str) -> List[str]:
+        numToLetDict = {
+                            '1': [], 
+                            '2': ['a','b','c'], 
+                            '3': ['d','e','f'], 
+                            '4': ['g','h','i'], 
+                            '5': ['j','k','l'],
+                            '6': ['m','n','o'],
+                            '7': ['p','q','r','s'],
+                            '8': ['t','u','v'],
+                            '9': ['w','x','y','z']
+                        }
+        results = []
+
+        for currNum in digits:
+            if not results:
+                results = numToLetDict[currNum]
+            else:
+                newResults = []
+                for currChar in numToLetDict[currNum]:
+                    for currEntry in results:
+                        newResults.append(currEntry + currChar)
+                results = newResults
+        return results
+    
+# 35 Search Insert Position
+class Solution:
+    def searchInsert(self, nums: List[int], target: int) -> int:
+        return bst(nums, 0, target)
+
+
+def bst(subNums, leftIndex, target):
+    if len(subNums) == 1:
+        if subNums[0] >= target:
+            return leftIndex
+        else:
+            return leftIndex + 1
+    midIndex = len(subNums)//2
+    if subNums[midIndex] == target:
+        return leftIndex + midIndex
+    elif subNums[midIndex] > target:
+        return bst(subNums[:midIndex], leftIndex, target)
+    else:
+        return bst(subNums[midIndex:], leftIndex + midIndex, target)
