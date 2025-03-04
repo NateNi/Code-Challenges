@@ -89,3 +89,25 @@ def bst(subNums, leftIndex, target):
         return bst(subNums[:midIndex], leftIndex, target)
     else:
         return bst(subNums[midIndex:], leftIndex + midIndex, target)
+
+# 48 Rotate Image
+# TO DO: Slow, improve by using flip, transpose approach
+
+class Solution:
+    def rotate(self, matrix: List[List[int]]) -> None:
+        """
+        Do not return anything, modify matrix in-place instead.
+        """
+        matrixLen = len(matrix) - 1
+
+        for j in range(ceil(len(matrix)/2)):
+            for i in range(j,len(matrix)-1-j):
+                temp2 = matrix[i][matrixLen - j]
+                matrix[i][matrixLen - j] = matrix[j][i]
+                temp1 = temp2
+                temp2 = matrix[matrixLen-j][matrixLen-i]
+                matrix[matrixLen-j][matrixLen-i] = temp1
+                temp1 = temp2
+                temp2 = matrix[matrixLen-i][j]
+                matrix[matrixLen-i][j] = temp1
+                matrix[j][i] = temp2
