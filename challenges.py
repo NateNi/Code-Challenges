@@ -111,3 +111,25 @@ class Solution:
                 temp2 = matrix[matrixLen-i][j]
                 matrix[matrixLen-i][j] = temp1
                 matrix[j][i] = temp2
+
+# 150 Evaluate Reverse Polish Notation
+class Solution:
+    def evalRPN(self, tokens: List[str]) -> int:
+        validOperators = ('+', '-', '*', '/')
+        evalStack = []
+        for token in tokens:
+            if token not in validOperators:
+                evalStack.append(int(token))
+            else:
+                operand2 = evalStack.pop()
+                operand1 = evalStack.pop()
+                if token == '+':
+                    evalStack.append(operand1 + operand2)
+                elif token == '-':
+                    evalStack.append(operand1 - operand2)
+                elif token == '*':
+                    evalStack.append(operand1 * operand2)
+                else:
+                    evalStack.append(int(operand1 / operand2))
+        return evalStack.pop()
+
