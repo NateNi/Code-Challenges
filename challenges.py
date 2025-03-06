@@ -133,3 +133,26 @@ class Solution:
                     evalStack.append(int(operand1 / operand2))
         return evalStack.pop()
 
+# 200 Number of Islands
+class Solution:
+    def numIslands(self, grid: List[List[str]]) -> int:
+        islandCount = 0
+        for y in range(len(grid)):
+            for x in range(len(grid[0])):
+                currEntry = grid[y][x]
+                if currEntry == '1':
+                    islandCount += 1
+                    grid = clearIsland(x,y,grid)
+        return islandCount
+
+def clearIsland(x,y,grid):
+    if x >= 0 and x < len(grid[0]) and y >= 0 and y < len(grid) and grid[y][x] == "1":
+        grid[y][x] = "0"
+        grid = clearIsland(x-1,y,grid)
+        grid = clearIsland(x+1,y,grid)
+        grid = clearIsland(x,y-1,grid)
+        grid = clearIsland(x,y+1,grid)
+    return grid
+
+
+        
