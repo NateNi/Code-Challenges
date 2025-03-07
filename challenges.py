@@ -1,3 +1,9 @@
+# Findings:
+# 
+# 1. Use library heapq when building heaps and priority queues
+# 2. Rotate matrix by flipping rows, tranposing elements
+#
+
 # 49. Group Anagrams
 class Solution:
     def groupAnagrams(self, strs):
@@ -166,3 +172,28 @@ class Solution:
                 heapq.heappop(klargest)
         return klargest[0]
         
+# 2 Add two numbers
+
+class Solution:
+    def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
+        resultStart = None
+        resultCurrent = None
+        currNode1 = l1
+        currNode2 = l2
+        extra = 0
+        while currNode1 is not None or currNode2 is not None or extra:
+            newSum = (currNode1.val if currNode1 is not None else 0) + (currNode2.val if currNode2 is not None else 0) + extra
+            if resultStart is None:
+                resultStart = ListNode()
+                resultStart.val = newSum % 10
+                resultCurrent = resultStart
+            else: 
+                resultCurrent.next = ListNode()
+                resultCurrent = resultCurrent.next
+                resultCurrent.val = newSum % 10
+            extra = newSum // 10
+            if currNode1 is not None:
+                currNode1 = currNode1.next
+            if currNode2 is not None:
+                currNode2 = currNode2.next
+        return resultStart
