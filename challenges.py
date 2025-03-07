@@ -154,5 +154,15 @@ def clearIsland(x,y,grid):
         grid = clearIsland(x,y+1,grid)
     return grid
 
+# 215 Kth largest element in an array
+import heapq
 
+class Solution:
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        klargest = []
+        for num in nums:
+            heapq.heappush(klargest, num)
+            if (len(klargest) > k):
+                heapq.heappop(klargest)
+        return klargest[0]
         
