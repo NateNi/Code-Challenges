@@ -197,3 +197,16 @@ class Solution:
             if currNode2 is not None:
                 currNode2 = currNode2.next
         return resultStart
+
+# 274 H-Index
+
+class Solution:
+    def hIndex(self, citations: List[int]) -> int:
+        citations.sort(reverse=True)
+        hIndex = 0
+        for citation in citations:
+            if citation > hIndex:
+                hIndex += 1
+            else:
+                return hIndex
+        return hIndex
