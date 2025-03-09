@@ -210,3 +210,37 @@ class Solution:
             else:
                 return hIndex
         return hIndex
+
+# 138 Copy List with Random Pointer
+
+class Solution:
+    def copyRandomList(self, head: 'Optional[Node]') -> 'Optional[Node]':
+        if head is None:
+            return None
+        copyStart = Node(head.val)
+        ogRefs = [head]
+        copyRefs = [copyStart]
+        ogRefs, copyRefs = traverseAndCopy(copyStart, head, ogRefs, copyRefs)
+        traverseAndSetRandom(copyStart, head, ogRefs, copyRefs)
+        return copyStart
+
+def traverseAndCopy(currNodeCopy, currNodeOg, ogRefs, copyRefs):
+    if currNodeOg.next is None:
+        return ogRefs, copyRefs
+
+    currNodeOg = currNodeOg.next
+    currNodeCopy.next = Node(currNodeOg.val)
+    currNodeCopy = currNodeCopy.next
+    
+    ogRefs.append(currNodeOg)
+    copyRefs.append(currNodeCopy)
+    return traverseAndCopy(currNodeCopy, currNodeOg, ogRefs, copyRefs)
+
+def traverseAndSetRandom(currNodeCopy, currNodeOg, ogRefs, copyRefs):
+    if currNodeOg is None:
+        return True
+    if currNodeOg.random is not None:
+        currNodeCopy.random = copyRefs[ogRefs.index(currNodeOg.random)]
+    currNodeCopy = currNodeCopy.next
+    currNodeOg = currNodeOg.next
+    return traverseAndSetRandom(currNodeCopy, currNodeOg, ogRefs, copyRefs)
