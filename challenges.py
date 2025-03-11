@@ -244,3 +244,22 @@ def traverseAndSetRandom(currNodeCopy, currNodeOg, ogRefs, copyRefs):
     currNodeCopy = currNodeCopy.next
     currNodeOg = currNodeOg.next
     return traverseAndSetRandom(currNodeCopy, currNodeOg, ogRefs, copyRefs)
+
+# 77 Combinations
+
+class Solution:
+    def combine(self, n: int, k: int) -> List[List[int]]:
+        combos = []
+        self.generateCombo([], combos, k, list(range(1, n+1)))
+        return combos
+
+    def generateCombo(self, combo, combos, k, values):
+        if len(combo) == k:
+            combos.append(combo[:])
+            return True
+        if len(values) + len(combo) >= k:
+            for value in values[:]:            
+                combo.append(values.pop())
+                self.generateCombo(combo, combos, k, values[:])
+                combo.pop()
+        return True
