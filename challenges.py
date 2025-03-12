@@ -263,3 +263,22 @@ class Solution:
                 self.generateCombo(combo, combos, k, values[:])
                 combo.pop()
         return True
+
+# 46 Permutations
+
+class Solution:
+    def permute(self, nums: List[int]) -> List[List[int]]:
+        results = []
+        self.buildPerm([], nums, results)
+        return results
+    
+    def buildPerm(self, perm, nums, results):
+        if len(nums) == 0:
+            results.append(perm[:])
+            return True
+        for i in range(len(nums)):
+            perm.append(nums[i])
+            self.buildPerm(perm, (nums[0:i] if i != 0 else []) + nums[i+1:], results)
+            perm.pop()
+        return True
+        
