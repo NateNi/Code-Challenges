@@ -282,3 +282,25 @@ class Solution:
             perm.pop()
         return True
         
+# 39 Combination Sum
+
+class Solution:
+    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+        
+        def findCombos(combo, comboSum, combos, candidates, target):
+            if comboSum == target:
+                combos.append(combo[:])
+                return
+            elif comboSum > target:
+                return
+            for i in range(len(candidates)):
+                combo.append(candidates[i])
+                comboSum += candidates[i]
+                findCombos(combo[:], comboSum, combos, candidates[i:], target)
+                comboSum -= candidates[i]
+                combo.pop()
+
+        combos = []
+        candidates = [candidate for candidate in candidates if candidate <= target ]
+        findCombos([], 0, combos, candidates[:], target)
+        return combos  
