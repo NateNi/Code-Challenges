@@ -304,3 +304,23 @@ class Solution:
         candidates = [candidate for candidate in candidates if candidate <= target ]
         findCombos([], 0, combos, candidates[:], target)
         return combos  
+
+# 73 Set Matrix Zeroes
+
+class Solution:
+    def setZeroes(self, matrix: List[List[int]]) -> None:
+        rowsWithZeroes = []
+        for colIndex in range(len(matrix)):
+            currColHasZero = False
+            for rowIndex in range(len(matrix[0])):
+                if matrix[colIndex][rowIndex] is 0:
+                    if not currColHasZero:
+                        currColHasZero = True
+                        for i in range(rowIndex):
+                            matrix[colIndex][i] = 0
+                    if rowIndex not in rowsWithZeroes:
+                        rowsWithZeroes.append(rowIndex)
+                        for j in range(colIndex):
+                            matrix[j][rowIndex] = 0
+                elif rowIndex in rowsWithZeroes or currColHasZero:
+                    matrix[colIndex][rowIndex] = 0
