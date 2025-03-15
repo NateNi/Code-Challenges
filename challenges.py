@@ -324,3 +324,20 @@ class Solution:
                             matrix[j][rowIndex] = 0
                 elif rowIndex in rowsWithZeroes or currColHasZero:
                     matrix[colIndex][rowIndex] = 0
+
+# 67 Add Binary
+
+class Solution:
+    def addBinary(self, a: str, b: str) -> str:
+        result = []
+        remainder = 0
+        for i in range(max(len(a), len(b))):
+            currA = int(a[len(a) - i - 1]) if i < len(a) else 0
+            currB = int(b[len(b) - i - 1]) if i < len(b) else 0
+            sum = currA + currB + remainder
+            result.append(str(sum % 2))
+            remainder = sum // 2
+        if remainder:
+            result.append('1')
+        result.reverse()
+        return "".join(result)
